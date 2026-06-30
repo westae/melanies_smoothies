@@ -14,6 +14,12 @@ st.write(
 
 import streamlit as st
 
+# New section to display FrootSmoothie nutrituin information
+import requests  
+smoothiefroot_response = requests.get("[https://my.smoothiefroot.com/api/fruit/watermelon](https://my.smoothiefroot.com/api/fruit/watermelon)")  
+st.text(smoothiefroot_response)
+
+
 name_on_order = st.text_input("Name on your Smoothie:")
 st.write("The name on your Smoothie will be: ", name_on_order)
 
