@@ -2,6 +2,7 @@
 
 # Import python packages
 import streamlit as st
+import requests  # Moved this up to the top (Lesson 62)
 #from snowflake.snowpark.context import get_active_session -- removed when moving out of Snowflake
 from snowflake.snowpark.functions import col
 
@@ -14,11 +15,7 @@ st.write(
 
 import streamlit as st
 
-# New section to display FrootSmoothie nutrituin information
-import requests  
-# smoothiefroot_response = requests.get("[https://my.smoothiefroot.com/api/fruit/watermelon](https://my.smoothiefroot.com/api/fruit/watermelon)")  
 smoothiefroot_response = requests.get('https://my.smoothiefroot.com/api/fruit/watermelon')  
-#st.text(smoothiefroot_response.json())
 sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
 
 name_on_order = st.text_input("Name on your Smoothie:")
@@ -28,8 +25,6 @@ cnx = st.connection("snowflake")
 session = cnx.session()
 my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'))
 #st.dataframe(data=my_dataframe, use_container_width=True) 
-
-# st.write("You selected:", options)
 
 # My attempt to make this work:
 ingredient_list = st.multiselect(
@@ -46,6 +41,7 @@ if ingredient_list: # which means when the list is null, do everything below thi
 
     for fruit_chosen in ingredient_list:
         ingredients_string += fruit_chosen + ' '
+        sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
 
     #st.write(ingredients_string)
 
