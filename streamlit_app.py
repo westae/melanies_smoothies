@@ -41,6 +41,8 @@ if ingredient_list: # which means when the list is null, do everything below thi
 
     for fruit_chosen in ingredient_list:
         ingredients_string += fruit_chosen + ' '
+        st.subheader(fruit_chosen + ' Nutrition Informatn')
+        smoothiefroot_response = requests.get('https://my.smoothiefroot.com/api/fruit/' + fruit_chosen)       
         sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
 
     #st.write(ingredients_string)
