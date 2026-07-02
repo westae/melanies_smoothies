@@ -14,6 +14,7 @@ st.write(
 )
 
 import streamlit as st
+import pandas
 
 smoothiefroot_response = requests.get('https://my.smoothiefroot.com/api/fruit/watermelon')  
 sf_df = st.dataframe(data=smoothiefroot_response.json(), width="stretch")
@@ -24,7 +25,12 @@ st.write("The name on your Smoothie will be: ", name_on_order)
 cnx = st.connection("snowflake")
 session = cnx.session()
 my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'),col('SEARCH_ON'))
-st.dataframe(data=my_dataframe, width="stretch") 
+# st.dataframe(data=my_dataframe, width="stretch") 
+# st.stop()
+
+# Convert the Snowpark Dataframe to a Pandas Dataframe so we can use the LOC location
+pd_df=my_dataframe.to_pandas()
+st.dataframe(pd_df)
 st.stop()
       
 # My attempt to make this work:
