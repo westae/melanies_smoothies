@@ -53,7 +53,7 @@ if ingredient_list: # which means when the list is null, do everything below thi
         st.write('The search value for ', fruit_chosen,' is ', search_on, '.')      
         
         st.subheader(fruit_chosen + ' Nutrition Informatn')
-        smoothiefroot_response = requests.get('https://my.smoothiefroot.com/api/fruit/' + fruit_chosen)       
+        smoothiefroot_response = requests.get(f"https://my.smoothiefroot.com/api/fruit/{search_on}")       
         # sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
         sf_df = st.dataframe(data=smoothiefroot_response.json(), width="stretch")  # Changed due to Log entries coming from Stremlit applicaton logger    
 
